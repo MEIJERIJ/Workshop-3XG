@@ -1,0 +1,35 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "3XG Workshop: Data Science with R for VITO"
+  subtitle: "An introduction to R and data science for the 3XG study"
+  reader-mode: true
+
+  page-footer:
+    left: |
+      This workshop book is maintained for the 3XG study at VITO.
+    right: |
+      Built with <a href="https://quarto.org/">Quarto</a>. Structure adapted from
+      <a href="https://r4ds.hadley.nz/">R for Data Science</a>.
+  site-url: https://meijerij.github.io/Workshop-3XG/
+  repo-url: https://github.com/MEIJERIJ/Workshop-3XG/
+  repo-branch: main
+  repo-actions: [edit, issue]
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - workflow-basics.qmd
+    - data-import.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - workshop.scss
+    code-link: true
+    author-meta: "3XG Workshop, VITO"
+    callout-appearance: simple
+
+editor: source

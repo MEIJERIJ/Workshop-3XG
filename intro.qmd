@@ -1,0 +1,90 @@
+# Introduction {#sec-intro}
+
+```{r}
+#| echo: false
+source("_common.R")
+status("drafting")
+```
+
+Data science is the discipline of turning raw data into understanding,
+insight, and knowledge. The goal of this workshop is to give you a
+practical, hands-on introduction to doing data science with R, in the
+context of the **3XG study at VITO**.
+
+## What you will learn
+
+This workshop focuses on the essential first steps of any data analysis
+project:
+
+1. **Import** — getting your data into R, whatever format it originally
+   comes in (CSV, Excel, etc.).
+2. **Tidy** — reshaping data so each variable is a column, each
+   observation is a row, and each value is a cell.
+3. **Explore** — repeatedly transforming, visualizing, and modelling data
+   to understand it better.
+4. **Communicate** — presenting your results clearly to others.
+
+Surrounding these steps is **programming**: the set of skills you use to
+automate common tasks and to write clear, reusable code.
+
+```{r}
+#| label: fig-ds-diagram
+#| echo: false
+#| fig-cap: >
+#|   A simplified data science workflow: import, tidy, and then iterate
+#|   between transforming, visualizing, and modelling your data, before
+#|   communicating the results.
+#| fig-alt: >
+#|   A diagram displaying the data science cycle: Import -> Tidy -> Understand
+#|   (which contains Transform -> Visualize -> Model in a cycle) -> Communicate.
+knitr::include_graphics("images/data-science-workflow.svg", error = FALSE)
+```
+
+## Why R?
+
+R is a free, open-source programming language and environment designed
+specifically for statistical computing and data analysis. It is widely
+used across research institutes, including VITO, because it:
+
+- Has a large ecosystem of packages for data wrangling, visualization,
+  statistics, and reporting (many of them part of the
+  [tidyverse](https://www.tidyverse.org/)).
+- Makes reproducible analysis straightforward, which is essential for
+  research studies like 3XG.
+- Is free and works on Windows, macOS, and Linux.
+
+## Tools you'll need
+
+To follow along with this workshop, you'll need:
+
+- **R** — download it from [CRAN](https://cran.r-project.org/).
+- **RStudio** (or another R-friendly editor such as Positron or VS Code
+  with the R extension) — download RStudio Desktop from
+  [posit.co](https://posit.co/download/rstudio-desktop/).
+- **Quarto** — used to build this workshop book and to write your own
+  reports; see [quarto.org](https://quarto.org/).
+- The **tidyverse** package, which bundles together the R packages used
+  throughout this workshop:
+
+```{r}
+#| eval: false
+install.packages("tidyverse")
+```
+
+## How this workshop is organized
+
+After this introduction, the workshop covers:
+
+- @sec-workflow-basics: the basics of writing and running R code.
+- @sec-data-import: how to bring data into R so you can start exploring
+  it, using an example dataset in the style of the data typically used in
+  the 3XG study.
+
+More chapters — covering data transformation, visualization, and
+reporting — will be added as the workshop develops.
+
+## Acknowledgements
+
+This introduction is inspired by the structure of the introduction chapter
+in [*R for Data Science*](https://r4ds.hadley.nz/intro.html), rewritten and
+adapted for the 3XG/VITO context.
