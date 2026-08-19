@@ -22,6 +22,8 @@ book:
     - intro.qmd
     - workflow-basics.qmd
     - data-import.qmd
+    - data-transform.qmd
+    - visualize.qmd
 
 format:
   html:

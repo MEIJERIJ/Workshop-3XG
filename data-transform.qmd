@@ -1,0 +1,12 @@
+# Data transform {#sec-data-transform}
+
+```{r}
+#| echo: false
+source("_common.R")
+status("drafting")
+```
+
+This chapter is a placeholder for the data transformation content: filtering,
+selecting, and summarizing your data.
+
+<!-- TODO: add content on data transformation with dplyr. -->
