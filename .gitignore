@@ -1,0 +1,16 @@
+.Rproj.user
+.Rhistory
+*_cache
+*_files
+_main.rds
+_book
+*.md
+!README.md
+search_index.json
+libs
+*.rds
+_main.*
+tmp-pdfcrop-*
+figures
+/.quarto/
+site_libs

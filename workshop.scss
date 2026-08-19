@@ -1,0 +1,12 @@
+/*-- scss:defaults --*/
+$primary: #00587a; // VITO-inspired blue
+$body-color: #1a1a1a;
+
+/*-- scss:rules --*/
+.status {
+  font-style: italic;
+}
+
+code {
+  color: $primary;
+}
