@@ -1,0 +1,12 @@
+# Visualize {#sec-visualize}
+
+```{r}
+#| echo: false
+source("_common.R")
+status("drafting")
+```
+
+This chapter is a placeholder for the data visualization content: creating
+clear plots of your data with ggplot2.
+
+<!-- TODO: add content on data visualization with ggplot2. -->

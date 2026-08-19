@@ -1,0 +1,12 @@
+# Workflow basics {#sec-workflow-basics}
+
+```{r}
+#| echo: false
+source("_common.R")
+status("drafting")
+```
+
+This chapter is a placeholder for the workflow basics content: running
+code, naming objects, and calling functions in R.
+
+<!-- TODO: add content on running code, naming objects, and calling functions. -->
