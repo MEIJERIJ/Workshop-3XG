@@ -1,4 +1,4 @@
-# Data transform {#sec-data-transform}
+# Regression analysis {#sec-data-transform}
 
 ```{r}
 #| echo: false

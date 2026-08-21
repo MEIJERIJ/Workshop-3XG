@@ -1,0 +1,25 @@
+# Data exploratie {#sec-workflow-basics}
+
+
+## Exposure biomarkers
+
+
+### Distribution
+
+
+### Exposures below LOD and missing data
+
+
+### Stratified by subpopulations
+
+
+## Outcomes
+
+
+### Distribution
+
+### Dropout and missing data
+
+### Stratified by subpopulations
+
+

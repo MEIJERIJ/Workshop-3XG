@@ -3,16 +3,16 @@ project:
   output-dir: _book
 
 book:
-  title: "3XG Workshop: Data Science with R for VITO"
-  subtitle: "An introduction to R and data science for the 3XG study"
+  title: "Workshop: statistical analysis"
   reader-mode: true
-
+  sidebar:
+    logo: "figures/logo.png"  # Path to your logo file
+    logo-alt: "Workshop Logo"
   page-footer:
     left: |
-      This workshop book is maintained for the 3XG study at VITO.
+      <img src="figures/vito-logo_blue.png" height="40px" style="vertical-align: middle; margin-right: 10px;"> This workshop is maintained by Jonas Meijerink. 
     right: |
-      Built with <a href="https://quarto.org/">Quarto</a>. Structure adapted from
-      <a href="https://r4ds.hadley.nz/">R for Data Science</a>.
+      Built with <a href="https://quarto.org/">Quarto</a> and the [bookdown](https://bookdown.org/) package.
   site-url: https://meijerij.github.io/Workshop-3XG/
   repo-url: https://github.com/MEIJERIJ/Workshop-3XG/
   repo-branch: main
@@ -20,10 +20,10 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - workflow-basics.qmd
-    - data-import.qmd
-    - data-transform.qmd
-    - visualize.qmd
+    - exploration.qmd
+    - hypothesis-tests.qmd
+    - regression.qmd
+    - extensions.qmd
 
 format:
   html:
@@ -31,7 +31,7 @@ format:
       - cosmo
       - workshop.scss
     code-link: true
-    author-meta: "3XG Workshop, VITO"
+    author-meta: "Jonas Meijerink"
     callout-appearance: simple
 
 editor: source

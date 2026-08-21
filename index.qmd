@@ -1,55 +1,59 @@
-# Welcome {.unnumbered}
+# Welkom {.unnumbered}
 
-Welcome to the **3XG Workshop**: an introduction to R and data science,
-developed for participants of the 3XG study at [VITO](https://www.vito.be/).
+Welcome to the **3XG Workshop**: a gentle introduction to statistical analysis based on the 3XG study.
 
-## About this workshop
+## Over deze workshop
 
-This book is the companion material for a hands-on workshop that teaches the
-basics of working with data in R. It is aimed at students and researchers
-involved in the 3XG study who want to learn how to import, explore,
-visualize, and communicate about their data using modern, reproducible
-tools.
+These notes are the companion material for a hands-on workshop that teaches the
+basics of working with data in R. It is aimed at students interested in the 3XG study who want to learn how to explore, visualize, analyse and communicate about their data.
 
 The workshop does not assume any prior programming experience. By the end
 of it, you should be able to:
 
-- Set up and use R and RStudio (or another R-friendly editor) for everyday
-  data analysis.
-- Import data from common file formats into R.
 - Perform basic data wrangling and exploration.
 - Create clear visualizations of your data.
 - Organize your analysis in a reproducible way.
 
-## Structure of this book
+## How to work trough the course notes
 
-The book is organized as a small set of introductory chapters:
+These course notes are written with R Bookdown [@R-bookdown] in R Studio and rendered to an html file that is made available on GitHub. If you wish, you can convert the html to a pdf file. The best way to do this, is via the *print* function of your browser. Before doing so, you can best first collapse the sidebar (that contains the table of content).
 
-- **Introduction** — the goals of the workshop, the tools you'll need, and
-  how the 3XG study fits into this training.
-- **Workflow basics** — the fundamentals of working with R: running code,
-  naming objects, and calling functions.
-- **Data import** — how to bring your own (or example) data into R so you
-  can start exploring it.
+Many **data analyses examples** are worked out in detail in the course notes, including the R code. When you access the course notes via GitHub, you can easily copy the R code and paste it to your local R software. Here is an example of a chunck of R code:
+```{r}
+### Simulate a normal distribution
+#---------------------------------
+Y <- rnorm(n = 100, mean = 0, sd = 1)
+```
+If you now move your mouse towards the upper right corner of the box that contains the R code, then you will see an icon appearing in that corner:
 
-This is intentionally a starting point rather than a complete reference.
-As the workshop grows, more chapters covering data transformation,
-visualization, and reporting will be added.
+If you click on that icon, the content of the box will be copied to your clipboard so that you can paste it wherever you want (e.g. in a local R file). I actually advise that you also **work with your own local R script** to which you copy some of the R code of the course notes so that you can *play* with the data and the R code yourself.
 
-## About VITO and the 3XG study
 
-[VITO](https://www.vito.be/) (Flemish Institute for Technological Research)
-carries out research in areas such as remote sensing, health, and
-sustainable materials. The 3XG study is one of the research efforts
-supported by VITO for which this workshop was created, to help participants
-build the data science skills needed to work with study data confidently.
+## Why R?
+
+R is a free, open-source programming language and environment designed
+specifically for statistical computing and data analysis. It is widely
+used across research institutes, including VITO, because it:
+
+- Has a large ecosystem of packages for data wrangling, visualization,
+  statistics, and reporting (many of them part of the
+  [tidyverse](https://www.tidyverse.org/)).
+- Makes reproducible analysis straightforward, which is essential for
+  research studies like 3XG.
+- Is free and works on Windows, macOS, and Linux.
+
+## Tools you'll need
+
+To follow along with this workshop, you'll need:
+
+- **R** — download it from [CRAN](https://cran.r-project.org/).
+- **RStudio** (or another R-friendly editor such as Positron or VS Code
+  with the R extension) — download RStudio Desktop from
+  [posit.co](https://posit.co/download/rstudio-desktop/).
+
+
 
 ## Acknowledgements
 
-The structure of this book was inspired by the excellent
-[*R for Data Science*](https://r4ds.hadley.nz/) (2nd edition) by Hadley
-Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund, which is released
-under a [CC BY-NC-ND 3.0 license](https://creativecommons.org/licenses/by-nc-nd/3.0/us/).
-Only the general book layout (chapter organization, build tooling) was
-reused; all text in this book has been written specifically for the 3XG
-workshop.
+The layout of this book was inspired by the excellent [R for Data Science (2nd edition)](https://hadley.nz) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. The technical framework and structure of the document were built using [bookdown](https://bookdown.org/). The content is inspired the handbook and slides of [Linear mixed models for Longitudinal Data](https://link.springer.com/book/10.1007/978-1-4419-0300-6) by Geert Verbeke en Geert Molenberghs. The text has been adjusted specifically for the 3XG study.
+
