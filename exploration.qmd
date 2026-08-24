@@ -1,25 +1,259 @@
 # Data exploratie {#sec-workflow-basics}
 
 
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+
+
+### Load packages
+#----------------
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(knitr)
+library(readr)
+
+
+### Load data
+#------------
+dataset <- read_csv("~/Workshop-3XG/Data/3xg_gesimuleerde_dataset.csv")
+
+
+### Make factors
+#---------------
+dataset$time   <- factor(dataset$time, 
+                         levels = c("0 jaar", "7 jaar", "14 jaar"))
+dataset$gender <- factor(dataset$gender, 
+                         levels = c("meisje", "jongen"))
+dataset$SES    <- factor(dataset$SES, 
+                         levels = c("laag", "midden", "hoog"))
+
+
+### Columns
+#----------
+exposure_vars   <- c("PFOS_imp", "PFOA_imp", "PFHxS_imp", "PFNA_imp")
+below_lod_vars  <- c("below_LOD_PFOS", "below_LOD_PFOA", "below_LOD_PFHxS", "below_LOD_PFNA")
+
+
+### Long-format
+#--------------
+exposures_long <- dataset |>
+  select(id, time, gender, SES, all_of(exposure_vars)) |>
+  pivot_longer(cols = all_of(exposure_vars), names_to = "stof", values_to = "concentratie") |>
+  mutate(stof = sub("_imp$", "", stof))
+```
+
+
+Al vorens we starten met data visualisaties controleren we eerst het **dataformaat** en de **kolomnamen** van de dataset.
+
+
+```{r}
+#| label: data-format
+dataset |>
+  head() |>
+   kable()
+```
+
+Merk op dat de **exposures** of bloodstellingen beschreven worden door 4 variabelen, bijvoorbeeld *PFOS_imp*, *PFOS_lod* en *below_LOD_PFOS*. Wanneer een concentratie onder de detectielimiet (LOD) ligt, wordt deze beschreven door -3 en vervangen door een imputatiewaarde in de variabele *PFOS_imp*. De variabele *PFOS_lod* geeft aan wat de detectielimiet is voor PFOS. De variabele *below_LOD_PFOS* is een indicatorvariabele die aangeeft of de concentratie onder de LOD ligt (1 = onder LOD, 0 = boven LOD).
+
+
 ## Exposure biomarkers
 
+### Exposures onder de detectielimiet of *limit of detection (LOD)*
+
+Bij de metingen van deze stoffen liggen sommige concentraties onder de detectielimiet (LOD). We berekenen het percentage van de metingen dat onder de LOD ligt voor elke stof. Hierdoor krijgen we een idee hoe representatief elke stof is en of we deze kunnen gebruiken in verdere analyses. 
+
+```{r}
+#| label: tbl-below-lod
+#| tbl-cap: "Percentage metingen onder de detectielimiet (LOD) per stof"
+
+dataset |>
+  summarise(across(all_of(below_lod_vars), ~ round(100 * mean(.x, na.rm = TRUE), 1))) |>
+  pivot_longer(everything(), names_to = "stof", values_to = "pct_onder_LOD") |>
+  mutate(stof = sub("^below_LOD_", "", stof)) |>
+  kable(col.names = c("Stof", "% onder LOD"))
+```
+
+Op basis van de resultaten zullen we voor eenvoud in deze demo enkel verder kijken naar *PFOS* and *PFOA* aangezien deze alle metingen boven de detectielimiet hebben.
 
 ### Distribution
 
+We starten met een data exploratie van de twee PFAS-blootstellingen, met een histogram van de verdeling.
 
-### Exposures below LOD and missing data
+```{r}
+#| label: fig-exposure-distribution
+#| fig-cap: "Verdeling van de vier PFAS-blootstellingen (over all tijdspunten heen)"
+exposures_long %>%
+  filter(stof %in% c("PFOS", "PFOA")) %>%
+  ggplot(aes(x = concentratie)) +
+    geom_histogram(bins = 30, fill = "steelblue", colour = "white") +
+    facet_wrap(~ stof, scales = "free") +
+    labs(x = "Concentratie (μg/l)", y = "Aantal metingen", title = "Histogram") +
+    theme_minimal()
+```
+Vervolgens bestuderen we ook enkele statistieken van deze PFAS concentraties. 
+
+
+```{r}
+#| label: tbl-exposure-summary
+#| tbl-cap: "Beschrijvende statistieken per blootstelling"
+
+exposures_long %>%
+  group_by(stof) %>%
+  filter(stof %in% c("PFOS", "PFOA")) %>%
+  summarise(
+    n       = sum(!is.na(concentratie)),
+    Gemiddelde     = mean(concentratie, na.rm = TRUE),
+    sd      = sd(concentratie, na.rm = TRUE),
+    p25     = quantile(concentratie, 0.25, na.rm = TRUE),
+    Mediaan = median(concentratie, na.rm = TRUE),
+    p75     = quantile(concentratie, 0.75, na.rm = TRUE),
+    Min     = min(concentratie, na.rm = TRUE),
+    Max     = max(concentratie, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(across(where(is.numeric) & !n, ~ round(.x, 3))) |>
+  kable()
+```
+
+
 
 
 ### Stratified by subpopulations
 
+
+Tot nu toe keken we telkens naar de verdeling van de PFAS-blootstellingen over alle tijdspunten heen. We kunnen ook de verdeling van de PFAS-blootstellingen bekijken, gestratificeerd naar geslacht of meetmoment. We gebruiken hiervoor boxplots, waarbij we de y-as op een log-schaal zetten om de spreiding beter te kunnen visualiseren.
+
+```{r}
+#| label: fig-exposure-by-gender
+#| fig-cap: "Blootstelling per stof, gestratificeerd naar geslacht"
+exposures_long %>%
+  filter(stof %in% c("PFOS", "PFOA")) %>%
+  ggplot(aes(x = gender, y = concentratie, fill = gender)) +
+    geom_boxplot(outlier.alpha = 0.3) +
+    scale_y_log10() +
+    facet_wrap(~ stof, scales = "free_y") +
+    labs(x = "Geslacht", y = "Concentratie (log-schaal)") +
+    theme_minimal() +
+    theme(legend.position = "none")
+```
+We zien duidelijk dat de concentraties van PFOS en PFOA hoger zijn bij jongens dan bij meisjes. Het is belangrijk om dit verschil in geslacht mee te nemen in de verdere analyses. We kunnen ook de verdeling van de PFAS-blootstellingen bekijken, gestratificeerd naar meetmoment.
+```{r}
+#| label: fig-exposure-by-time
+#| fig-cap: "Blootstelling per stof, gestratificeerd naar meetmoment"
+exposures_long %>%
+  filter(stof %in% c("PFOS", "PFOA")) %>%
+  ggplot(aes(x = time, y = concentratie, fill = time)) +
+    geom_boxplot(outlier.alpha = 0.3) +
+    scale_y_log10() +
+    facet_wrap(~ stof, scales = "free_y") +
+    labs(x = "Meetmoment", y = "Concentratie (log-schaal)") +
+    theme_minimal() +
+    theme(legend.position = "none")
+```
+We zien duidelijk een dalende trend in de concentraties van PFOS en PFOA over de tijd. Let wel op dat het gaat om gecorreleerde data, aangezien het dezelfde deelnemers zijn die op verschillende tijdstippen gemeten worden. 
 
 ## Outcomes
 
-
 ### Distribution
+
+```{r}
+#| label: fig-outcome-distribution
+#| fig-cap: "Verdeling van het neutrofielenaantal (complete cases)"
+
+ggplot(dataset, aes(x = neutrophil)) +
+  geom_histogram(bins = 30, fill = "darkgreen", colour = "white", na.rm = TRUE) +
+  labs(x = "Neutrofielenaantal (10^9/L)", y = "Aantal metingen") +
+  theme_minimal()
+```
+
+```{r}
+#| label: tbl-outcome-summary
+#| tbl-cap: "Longitudinale trend van het neutrofielenaantal"
+dataset %>%
+  head(36) %>%
+  ggplot( aes(x = time, y = neutrophil, group = id, col = as.factor(id))) +
+    geom_line(alpha = 0.5) +
+    geom_point( alpha = 0.5) +
+    labs(x = "Tijdstip van meting", y = "Neutrofielenaantal (10^9/L)", col = "ID deelnemer") +
+    theme_minimal()
+
+```
 
 ### Dropout and missing data
 
+De uitval op de uitkomst volgt in dit design een **vast**, monotoon
+opvolgingsschema: 301 deelnemers op jaar 0, 220 op jaar 7 en 200 op jaar 14
+(wie al ontbreekt op jaar 7 blijft ook ontbreken op jaar 14). Wie het eerst
+afhaakt is niet toevallig, maar gestuurd door SES-niveau, wat hieronder eerst
+op golfniveau en dan per subgroep gecontroleerd wordt.
+
+```{r}
+#| label: tbl-missing-outcome
+#| tbl-cap: "Aantal en percentage ontbrekende uitkomstmetingen, per meetmoment (doel: 301 / 220 / 200)"
+
+dataset |>
+  group_by(time) |>
+  summarise(
+    n_totaal      = n(),
+    n_aanwezig    = sum(!is.na(neutrophil)),
+    n_ontbrekend  = sum(is.na(neutrophil)),
+    pct_ontbrekend = round(100 * mean(is.na(neutrophil)), 1),
+    .groups = "drop"
+  ) |>
+  kable(col.names = c("Meetmoment", "N totaal", "N aanwezig", "N ontbrekend", "% ontbrekend"))
+```
+
+```{r}
+#| label: fig-dropout
+#| fig-cap: "Aantal deelnemers met een uitkomstmeting doorheen de opvolging (301 / 220 / 200)"
+
+dataset |>
+  group_by(time) |>
+  summarise(n_aanwezig = sum(!is.na(neutrophil)), .groups = "drop") |>
+  ggplot(aes(x = time, y = n_aanwezig, group = 1)) +
+  geom_line(colour = "firebrick", linewidth = 1) +
+  geom_point(colour = "firebrick", size = 2) +
+  labs(x = "Meetmoment", y = "Aantal deelnemers met uitkomstmeting") +
+  ylim(0, NA) +
+  theme_minimal()
+```
+
+Vervolgens wordt nagegaan of wie afhaakt samenhangt met andere kenmerken --
+met een vast opvolgingsschema is dit geen toets van een kansmechanisme, maar
+een controle of de gesimuleerde SES-gelinkte volgorde van uitval ook echt
+zichtbaar is in de data (lager SES-niveau -> hoger aandeel ontbrekend).
+
+```{r}
+#| label: tbl-missing-by-subgroup
+#| tbl-cap: "Percentage ontbrekende uitkomstmetingen, per geslacht en SES-niveau"
+
+dataset |>
+  group_by(gender, SES) |>
+  summarise(pct_ontbrekend = round(100 * mean(is.na(neutrophil)), 1), .groups = "drop") |>
+  kable(col.names = c("Geslacht", "SES-niveau", "% ontbrekend"))
+```
+
 ### Stratified by subpopulations
 
+```{r}
+#| label: fig-outcome-by-gender
+#| fig-cap: "Neutrofielenaantal per geslacht en meetmoment"
 
+ggplot(dataset, aes(x = time, y = neutrophil, fill = gender)) +
+  geom_boxplot(outlier.alpha = 0.3, na.rm = TRUE) +
+  labs(x = "Meetmoment", y = "Neutrofielenaantal (10^9/L)", fill = "Geslacht") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-outcome-by-ses
+#| fig-cap: "Neutrofielenaantal per SES-niveau en meetmoment"
+
+ggplot(dataset, aes(x = time, y = neutrophil, fill = SES)) +
+  geom_boxplot(outlier.alpha = 0.3, na.rm = TRUE) +
+  labs(x = "Meetmoment", y = "Neutrofielenaantal (10^9/L)", fill = "SES-niveau") +
+  theme_minimal()
+```
