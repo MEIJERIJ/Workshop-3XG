@@ -1,59 +1,52 @@
 # Welkom {.unnumbered}
 
-Welcome to the **3XG Workshop**: a gentle introduction to statistical analysis based on the 3XG study.
+Welkom bij de **3XG Workshop**: een introductie tot statistische analyse op basis van de 3XG-studie.
 
 ## Over deze workshop
 
-These notes are the companion material for a hands-on workshop that teaches the
-basics of working with data in R. It is aimed at students interested in the 3XG study who want to learn how to explore, visualize, analyse and communicate about their data.
+Deze nota's zijn het begeleidende materiaal voor de statistiek workshop beschikbaar via [GitHub](https://github.com/MEIJERIJ/Workshop-3XG). 
+Het doel van de workshop is om zelf aan de slag te gaan met gesimuleerde data van de 3XG-studie. Deze is beschikbaar via Github onder de folder *Data*. 
 
-The workshop does not assume any prior programming experience. By the end
-of it, you should be able to:
+We focussen op twee aspecten van data-analyse:
 
-- Perform basic data wrangling and exploration.
-- Create clear visualizations of your data.
-- Organize your analysis in a reproducible way.
+  - **descriptieve statistiek**: visualisaties, centrale tendens, spreiding, correlaties, etc.
+  - **inferentiële statistiek**: hypothese testen, regressieanalyse, etc.
 
-## How to work trough the course notes
+Deze cursusnota's zijn geschreven met [bookdown](https://bookdown.org/) in R Studio en omgezet naar een html-bestand dat beschikbaar wordt gesteld op GitHub. Indien gewenst, kun je de html omzetten naar een pdf-bestand. De beste manier om dit te doen, is via de *print* functie van je browser. Voordat je dit doet, kun je best eerst de zijbalk (die de inhoudstafel bevat) inklappen.
 
-These course notes are written with R Bookdown [@R-bookdown] in R Studio and rendered to an html file that is made available on GitHub. If you wish, you can convert the html to a pdf file. The best way to do this, is via the *print* function of your browser. Before doing so, you can best first collapse the sidebar (that contains the table of content).
-
-Many **data analyses examples** are worked out in detail in the course notes, including the R code. When you access the course notes via GitHub, you can easily copy the R code and paste it to your local R software. Here is an example of a chunck of R code:
+De voorbeelden worden in detail uitgewerkt in de cursusnota's, inclusief de R-code. Wanneer je de cursusnota's raadpleegt, kun je de R-code eenvoudig kopiëren en in je lokale R-software plakken. Hier is een voorbeeld van een stuk R-code:
 ```{r}
 ### Simulate a normal distribution
 #---------------------------------
 Y <- rnorm(n = 100, mean = 0, sd = 1)
 ```
-If you now move your mouse towards the upper right corner of the box that contains the R code, then you will see an icon appearing in that corner:
+Als je nu je muis naar de rechterbovenhoek van het vak met de R-code beweegt, zie je een icoontje verschijnen in die hoek. 
+Als je op dat icoontje klikt, wordt de inhoud van het vak naar je klembord gekopieerd, zodat je het kunt plakken waar je maar wilt (bv. in een lokaal R-bestand). 
+Ik raad je aan om **met je eigen lokale R-script te werken**, waarin je een deel van de R-code uit de cursusnota's kopieert, 
+zodat je zelf met de data en de R-code kunt *spelen*.
 
-If you click on that icon, the content of the box will be copied to your clipboard so that you can paste it wherever you want (e.g. in a local R file). I actually advise that you also **work with your own local R script** to which you copy some of the R code of the course notes so that you can *play* with the data and the R code yourself.
 
+## Waarom R?
 
-## Why R?
+R is een gratis, opensource programmeertaal en -omgeving die specifiek is ontworpen voor statistische analyses. Het wordt breed gebruikt binnen onderzoeksinstellingen, waaronder VITO, omdat het
 
-R is a free, open-source programming language and environment designed
-specifically for statistical computing and data analysis. It is widely
-used across research institutes, including VITO, because it:
-
-- Has a large ecosystem of packages for data wrangling, visualization,
-  statistics, and reporting (many of them part of the
-  [tidyverse](https://www.tidyverse.org/)).
-- Makes reproducible analysis straightforward, which is essential for
-  research studies like 3XG.
-- Is free and works on Windows, macOS, and Linux.
+- Een groot ecosysteem aan pakketten heeft voor het bewerken, visualiseren, analyseren en rapporteren van data.
+- Reproduceerbare analyse eenvoudig maakt.
+- Gratis is en werkt op Windows, macOS en Linux.
 
 ## Tools you'll need
 
-To follow along with this workshop, you'll need:
+Om deze workshop te volgen, heb je het volgende nodig:
 
-- **R** — download it from [CRAN](https://cran.r-project.org/).
-- **RStudio** (or another R-friendly editor such as Positron or VS Code
-  with the R extension) — download RStudio Desktop from
+- **R** te downloaden via [CRAN](https://cran.r-project.org/).
+- **RStudio** (of een andere R-vriendelijke editor zoals Positron of VS Code met de R-extensie) — download RStudio Desktop via
   [posit.co](https://posit.co/download/rstudio-desktop/).
 
 
 
 ## Acknowledgements
 
-The layout of this book was inspired by the excellent [R for Data Science (2nd edition)](https://hadley.nz) by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. The technical framework and structure of the document were built using [bookdown](https://bookdown.org/). The content is inspired the handbook and slides of [Linear mixed models for Longitudinal Data](https://link.springer.com/book/10.1007/978-1-4419-0300-6) by Geert Verbeke en Geert Molenberghs. The text has been adjusted specifically for the 3XG study.
+De lay-out van dit boek is geïnspireerd op het [R for Data Science (2nd edition)](https://hadley.nz) by Hadley Wickham, Mine Çetinkaya-Rundel, 
+and Garrett Grolemund en de structuur van het document werden opgebouwd met behulp van [bookdown](https://bookdown.org/). 
+De inhoud is geïnspireerd op het handboek en de slides van [Linear mixed models for Longitudinal Data](https://link.springer.com/book/10.1007/978-1-4419-0300-6) van Geert Verbeke en Geert Molenberghs. De tekst werd specifiek aangepast voor de 3XG-studie.
 
