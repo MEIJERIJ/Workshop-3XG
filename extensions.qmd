@@ -1,2 +1,3 @@
-# More advanced analysis {#sec-visualize}
+# Verdiepende analyses {#sec-visualize}
 
+Nog aan te vullen ...

@@ -3,28 +3,30 @@
 # Simulate longitudinal dataset with:
 #
 #   - gender          : Confounder
-#   - SES             : Confounder
-#   - PFOS/PFOA/PFHxS/PFNA : Exposure
-#   - LOD per stof     : elke PFAS-stof heeft een vaste, vooraf gekozen detectie-
-#                        limiet (PFOS_lod = 0.2, enz.). Voor elke stof <naam> komen
-#                        er drie kolommen in de dataset:
-#                          <naam>      : ruwe meting, met -3 als sentinelwaarde
-#                                        voor metingen onder de LOD (in plaats van
-#                                        de werkelijke -- onbekende -- waarde)
-#                          <naam>_lod  : constante kolom met de gehanteerde LOD
-#                          <naam>_imp  : STOCHASTISCHE imputatie op basis van
-#                                        een gefitte, links-gecensureerde log-
-#                                        normale verdeling (zie stap 4), i.p.v.
-#                                        de -3 sentinel
-#   - random intercept : subject-specifieke random intercept b_i ~ N(0, sigma_b^2)
-#                        met sigma_b groot t.o.v. de residuele SD, voor een sterke
-#                        within-subject correlatie (hoge ICC) tussen de 3 metingen
-#   - missing data     : enkel op de UITKOMST (neutrofielenaantal), met VASTE
-#                        steekproefgroottes per golf (301 op jaar 0, 220 op
-#                        jaar 7, 200 op jaar 14), monotone uitval, en wie het
-#                        eerst afhaakt gestuurd door een SES-gelinkt dropoutrisico
 #
-# Output: een long-format data.frame (1 rij per kind per meetmoment).
+#   - SES             : Confounder
+#
+#   - PFOS/PFOA/PFHxS/PFNA : Exposure
+#
+#   - LOD per stof     : elke PFAS-stof heeft een vaste, vooraf gekozen detectie-
+#                        limiet (PFOS_lod = 0.2, enz.). 
+#                        
+#                          <naam>      : ruwe meting, met -3 als sentinelwaarde
+#                                        voor metingen onder de LOD 
+#                          <naam>_lod  : constante kolom met de gehanteerde LOD
+#                          <naam>_imp  : imputatie op basis van censored lognormal distribution
+
+#   - random intercept : subject-specifieke random intercept b_i ~ N(0, sigma_b^2)
+#                        
+#   - missing data     : 301 op jaar 0
+#                        220 op jaar 7
+#                        200 op jaar 14, 
+#                        SES-gelinkt dropoutrisico
+#
+# Output: een long-format data.frame (1 rij per individu per meetmoment).
+#
+################################################################################
+
 
 set.seed(20260821)
 
@@ -35,33 +37,40 @@ n_subjects <- 301
 ages       <- c(0, 7, 14)
 n_times    <- length(ages)
 
+
 ## PFAS-panel: vier blootstellingen, elk met een vaste, vooraf gekozen LOD.
 exposure_names <- c("PFOS", "PFOA", "PFHxS", "PFNA")
 LOD <- c(PFOS = 0.1, PFOA = 0.1, PFHxS = 0.2, PFNA = 0.2)
 
+
 ## SES: categorisch met 3 niveaus, met aandeel van de cohorte per niveau
 SES_levels <- c("laag", "midden", "hoog")
 SES_probs  <- c(0.30, 0.40, 0.30)
+
 
 ## Ware regressieparameters voor de uitkomst (neutrofielenaantal, 10^9/L)
 beta0        <-  4.50   # intercept (gemiddeld neutrofielenaantal bij referentie)
 beta_age     <- -0.03   # licht dalend neutrofielenaantal met leeftijd
 beta_gender  <-  0.90   # STERK effect van gender op de uitkomst (confounding-pad 2)
 
-## Effect per PFAS-stof op de uitkomst (log-schaal) -- bewust verschillend sterk:
-beta_logPFOS  <- 0.65   # STERK effect
-beta_logPFOA  <- 0.28   # ZWAK effect
-beta_logPFHxS <- 0.00   # GEEN effect
-beta_logPFNA  <- 0.00   # GEEN effect
 
-## Effect van SES-niveau op de uitkomst, t.o.v. referentieniveau "laag"
-beta_SES_midden <- -0.10
-beta_SES_hoog   <- -0.25
+## Effect per PFAS-stof op de uitkomst (log-schaal)
+beta_logPFOS  <- -1.65   # STERK effect
+beta_logPFOA  <- -0.28   # ZWAK effect
+beta_logPFHxS <- -0.00   # GEEN effect
+beta_logPFNA  <- -0.00   # GEEN effect
+
+
+## Effect van SES-niveau
+beta_SES_midden <- 0.10
+beta_SES_hoog   <- 0.25
+
 
 ## Random-intercept / residuele variantie -> sterke within-subject correlatie
 sigma_b   <- 0.90       # SD van de random intercept (subject-niveau)
 sigma_eps <- 0.45       # SD van het meetfoutresidu (meetmoment-niveau)
 icc_true  <- sigma_b^2 / (sigma_b^2 + sigma_eps^2)
+
 
 ## Parameters voor het PFAS-blootstellingsmodel (lognormaal, per stof).
 ## gender is hier de confounder: jongens hebben systematisch hogere PFAS-
@@ -77,6 +86,7 @@ burden_loading       <- c(PFOS = 1.00,    PFOA = 0.80,     PFHxS = 0.60,     PFN
 sigma_burden         <- 0.35            # SD van de gedeelde blootstellingsburden
 
 cat(sprintf("Ware ICC (random intercept / totale variantie) = %.3f\n", icc_true))
+
 
 ## ---- 2. Subject-niveau covariaten (tijdsonafhankelijk) ---------------------
 
@@ -100,11 +110,13 @@ subjects <- data.frame(
   b_exposure  = b_exposure
 )
 
+
 ## ---- 3. Long-format dataset: 1 rij per subject per meetmoment --------------
 
 dat <- subjects[rep(seq_len(n_subjects), each = n_times), ]
 dat$age <- rep(ages, times = n_subjects)
 rownames(dat) <- NULL
+
 
 ## ---- 4. Simuleer de ware PFAS-blootstellingen (lognormaal, per stof) -------
 ## Voor elke stof in exposure_names: log-lineair model met gender- en

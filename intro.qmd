@@ -1,9 +1,11 @@
 # Introductie {#sec-intro}
 
-3XG, wat staat voor ‘Gezondheid – Gemeenten – Geboorten’, is een studie die opgestart werd in 2010 in de regio Dessel-Mol-Retie. Het 3xG project maakt deel uit van één van de verschillende initiatieven die een positieve impact moeten hebben op de werkgelegenheid, de welvaart en het welzijn in de regio. Het wordt uitgevoerd door een onderzoeksteam van drie wetenschappelijke partners: VITO, PIH en Universiteit Antwerpen. Het doel van de studie is de opvolging van de **(milieu)gezondheid** van de inwoners uit de regio Dessel-Mol-Retie. De studie bestaat uit twee onderdelen: 
+[3XG](https://studie3xg.be/nl), wat staat voor ‘Gezondheid – Gemeenten – Geboorten’, is een studie die opgestart werd in 2010 in de regio Dessel-Mol-Retie. Het 3XG project maakt deel uit van één van de verschillende initiatieven die een positieve impact moeten hebben op de werkgelegenheid, de welvaart en het welzijn in de regio. Het wordt uitgevoerd door een onderzoeksteam van drie wetenschappelijke partners: VITO, PIH en Universiteit Antwerpen. Het doel van de studie is de opvolging van de **(milieu)gezondheid** van de inwoners uit de regio Dessel-Mol-Retie. De studie bestaat uit twee onderdelen: 
 
   - Humane biomonitoring (geboortecohort)
   - Analyse van ziekte- en sterfteregisters.
+  
+**Voor het project zullen we de focus leggen op de humane biomonitoring van het geboortecohort.**
 
 
 ## Studie design 3XG
@@ -13,8 +15,7 @@
 Een geboortecohorte is een **prospectieve studie** die een bepaalde populatie doorheen de 
 tijd opvolgt. In dit geval gaat het om een actieve geboortecohorte van pasgeborenen uit de 
 regio Dessel-Mol-Retie. Er werden 301 pasgeboren baby’s uit de regio gerekruteerd tussen 
-2011 en 2015. Via humane biomonitoring, een techniek die de blootstelling en vroegtijdige 
-gezondheidseffecten van milieuvervuilende stoffen in het lichaam kan meten, werden in 
+2011 en 2015. Via humane biomonitoring, een techniek die de blootstelling van milieuvervuilende stoffen in het lichaam meet, werden in 
 navelstrengbloed, moedermelk, bloed en urine van de moeder gehaltes aan vervuilende stoffen
 en gezondheidsparameters gemeten. Zo kan de milieugezondheid van de pasgeborenen in Dessel,
 Mol en Retie vergeleken worden met Vlaanderen. Op 7 en 14 jaar werden alle kinderen opnieuw
@@ -29,51 +30,6 @@ uitgenodigd voor een humaan biomonitoringsonderzoek.
 ### Analyse van ziekte- en sterfteregisters
 
 Elke 5 jaar wordt een rapport gepubliceerd met de resultaten van de analyses van de bestaande ziekte- en sterfteregisters. Het gaat om de meest recente gegevens in verband met overlijden, kanker, hospitalisaties en aangeboren afwijkingen. Het is de bedoeling om na te gaan of de gegevens van de regio vergelijkbaar zijn met de algemene Vlaamse gegevens, en om tijdstrends te bekijken. Daarom wordt maximaal gestreefd naar een vergelijkbaarheid met de vroegere rapporteringen.
-
-
-
-## Complexiteitsniveaus in statistische analyse
-
-### Probleem met één steekproef (*One-Sample Problem*)
-
-De eenvoudigste statistische analyse richt zich op één uitkomstvariabele die gemeten wordt bij een steekproef uit een homogene populatie.
-$$
-Y_i, \qquad i = 1, \ldots, N
-$$
-Typische analyses zijn:
-
-  - het berekenen van een gemiddelde of mediaan (maat voor centrale tendens)
-  - het berekenen van een standaardafwijking of interkwartielafstand (maat voor spreiding)
-  
-Bijvoorbeeld, wat is de gemiddelde lichaamslengte van kinderen op 7-jarige leeftijd in de regio Dessel-Mol-Retie?
-
-### Probleem met twee steekproeven (*Two-Sample Problem*)
-
-Een eerste niveau van complexiteit ontstaat wanneer een uitkomstvariabele wordt gemeten in twee verschillende groepen binnen een grotere populatie, bijvoorbeeld behandelde en onbehandelde patiënten, jongens en meisjes, of rokers en niet-rokers.
-$$
-Y_{gi},\qquad g=1,2 \qquad i = 1, \ldots, N
-$$
-Een belangrijke onderzoeksvraag is of het gemiddelde verschilt tussen beide groepen.
-De uitkomstvariabele kan nog steeds lengte zijn, maar we hebben nu ook een verklarende
-variabele: bijvoorbeeld het geslacht. Zo kan de lengte van jongens vergeleken worden met de lengte van meisjes. De uitkomstvariabele wordt vaak de *afhankelijke variabele* genoemd. De predictor wordt vaak covariaat of *onafhankelijke variabele* genoemd.
-
-De statistische methoden voor dit type gegevens omvatten:
-
-  - Variantieanalyse (ANOVA)
-  - t-toets
-  - Wilcoxon-toets.
-
-In de voorgaande situatie had de onafhankelijke variabele slechts twee niveaus: een binaire of dichotome variabele. Dit is het eenvoudigste geval.
-
-
-### Regressie
-
-De predictor zelf kan ook een variabele zijn met verschillende niveaus. Bijvoorbeeld de concentratie PFOS in het lichaam van één van de deelnemers. Daarnaast kan de predictor een oneindig aantal niveaus hebben, zoals dat ook het geval is bij lengte. Dit leidt tot een familie van modellen die vaak regressiemodellen genoemd wordt.
-$$
-Y_i = \beta_0 + \beta_1 x_i + \epsilon_i, \qquad i = 1, \ldots, N
-$$
-Wanneer de afhankelijke variabele $Y_i$ continu is (bijvoorbeeld lengte), gebruikt men vaak lineaire regressie. De onafhankelijke variabele $x_i$ kan continu, binair, categorisch of discreet zijn. De keuze van de statistische analysemethode wordt bepaald door de uitkomst- of afhankelijke variabele, en niet door de predictorvariabelen. Als de afhankelijke variabele binair is (ziek/niet-ziek; overleden/in leven, ...), dan kiest men voor logistische regressie in plaats van lineaire regressie.
-
 
 
 

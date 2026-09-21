@@ -1,4 +1,10 @@
-# Data exploratie {#sec-workflow-basics}
+# Voorbeeld data exploratie {#sec-workflow-basics}
+
+*Dit voorbeeld is puur illustratief en heeft geen wetenschappelijke waarde. Gebruik dit louter als een voorbeeld mocht je inspiratie nodig hebben voor je eigen data exploratie. Dit is dus ook niet compleet en is in praktijk vaak veel uitgebreider.*
+
+Het doel is om te tonen hoe een data exploratie kan verlopen. We gebruiken hiervoor een gesimuleerde dataset van een longitudinale studie met 301 deelnemers, waarbij de blootstelling aan PFAS (PFOS, PFOA, PFHxS en PFNA) werd gemeten op 3 tijdstippen (0, 7 en 14 jaar). De uitkomst is het neutrofielenaantal in het bloed. De dataset bevat ook enkele covariaten zoals geslacht en sociaal-economische status (SES).
+
+
 
 
 ```{r}
@@ -18,7 +24,7 @@ library(readr)
 
 ### Load data
 #------------
-dataset <- read_csv("~/Workshop-3XG/Data/3xg_gesimuleerde_dataset.csv")
+dataset <- read_csv("~/Workshop-3XG/Data/Voorbeeld_dataset.csv")
 
 
 ### Make factors
@@ -78,13 +84,13 @@ dataset |>
 
 Op basis van de resultaten zullen we voor eenvoud in deze demo enkel verder kijken naar *PFOS* and *PFOA* aangezien deze alle metingen boven de detectielimiet hebben.
 
-### Distribution
+### Verdeling
 
 We starten met een data exploratie van de twee PFAS-blootstellingen, met een histogram van de verdeling.
 
 ```{r}
 #| label: fig-exposure-distribution
-#| fig-cap: "Verdeling van de vier PFAS-blootstellingen (over all tijdspunten heen)"
+#| fig-cap: "Verdeling van de PFOA- en PFOS-blootstellingen (over all tijdspunten heen)"
 exposures_long %>%
   filter(stof %in% c("PFOS", "PFOA")) %>%
   ggplot(aes(x = concentratie)) +
@@ -121,7 +127,7 @@ exposures_long %>%
 
 
 
-### Stratified by subpopulations
+### Stratificatie volgens subpopulaties
 
 
 Tot nu toe keken we telkens naar de verdeling van de PFAS-blootstellingen over alle tijdspunten heen. We kunnen ook de verdeling van de PFAS-blootstellingen bekijken, gestratificeerd naar geslacht of meetmoment. We gebruiken hiervoor boxplots, waarbij we de y-as op een log-schaal zetten om de spreiding beter te kunnen visualiseren.
@@ -155,9 +161,9 @@ exposures_long %>%
 ```
 We zien duidelijk een dalende trend in de concentraties van PFOS en PFOA over de tijd. Let wel op dat het gaat om gecorreleerde data, aangezien het dezelfde deelnemers zijn die op verschillende tijdstippen gemeten worden. 
 
-## Outcomes
+## Uitkomsten
 
-### Distribution
+### Verdelingen
 
 ```{r}
 #| label: fig-outcome-distribution
@@ -171,7 +177,9 @@ ggplot(dataset, aes(x = neutrophil)) +
 
 ```{r}
 #| label: tbl-outcome-summary
-#| tbl-cap: "Longitudinale trend van het neutrofielenaantal"
+#| message: false
+#| warning: false
+#| tbl-cap: Longitudinale trend van het neutrofielenaantal
 dataset %>%
   head(36) %>%
   ggplot( aes(x = time, y = neutrophil, group = id, col = as.factor(id))) +
@@ -182,7 +190,7 @@ dataset %>%
 
 ```
 
-### Dropout and missing data
+### Dropout en missing data
 
 De uitval op de uitkomst volgt in dit design een **vast**, monotoon
 opvolgingsschema: 301 deelnemers op jaar 0, 220 op jaar 7 en 200 op jaar 14
@@ -236,7 +244,7 @@ dataset |>
   kable(col.names = c("Geslacht", "SES-niveau", "% ontbrekend"))
 ```
 
-### Stratified by subpopulations
+### Stratificatie volgens subpopulaties
 
 ```{r}
 #| label: fig-outcome-by-gender
@@ -257,3 +265,35 @@ ggplot(dataset, aes(x = time, y = neutrophil, fill = SES)) +
   labs(x = "Meetmoment", y = "Neutrofielenaantal (10^9/L)", fill = "SES-niveau") +
   theme_minimal()
 ```
+
+
+## Relatie tussen blootstelling en uitkomst
+
+Naast de verdeling van de blootstellingen en de uitkomst afzonderlijk, is het ook nuttig om te kijken naar de relatie tussen beide. Een **scatterplot** met een smoother geeft een eerste indruk of er een verband is tussen de PFAS-concentratie en het neutrofielenaantal, en of dat verband lineair is of niet. 
+
+
+```{r}
+#| label: fig-exposure-outcome-scatter
+#| message: false
+#| warning: false
+#| fig-cap: Relatie tussen PFOS/PFOA-blootstelling en het neutrofielenaantal, met smoother
+
+exposures_long %>%
+  filter(stof %in% c("PFOS", "PFOA")) %>%
+  left_join(
+    dataset %>% select(id, time, neutrophil),
+    by = c("id", "time")
+  ) %>%
+  ggplot(aes(x = concentratie, y = neutrophil)) +
+  geom_point(alpha = 0.3, colour = "steelblue") +
+  geom_smooth(method = "loess", se = TRUE, colour = "firebrick") +
+  facet_wrap(stof~time, scales = "free_x") +
+  labs(
+    x = "Concentratie (μg/l)",
+    y = "Neutrofielenaantal (10^9/L)",
+    title = "Blootstelling-respons relatie"
+  ) +
+  theme_minimal()
+```
+
+Elk punt stelt één meting voor (één deelnemer op één tijdstip). De rode lijn is een loess-smoother: een flexibele curve die de gemiddelde trend in de data volgt. Het grijze/gearceerde gebied errond toont het 95%-betrouwbaarheidsinterval van die smoother. Zo kan je nagaan of de relatie ongeveer rechtlijnig is, of afbuigt bij hoge of lage concentraties.
