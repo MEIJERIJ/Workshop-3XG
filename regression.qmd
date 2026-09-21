@@ -1,3 +1,0 @@
-# Regressie analyse {#sec-data-transform}
-
-Nog aan te vullen ...
