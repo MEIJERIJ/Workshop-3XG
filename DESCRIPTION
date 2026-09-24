@@ -1,0 +1,19 @@
+Package: workshop3xg
+Title: 3XG Workshop: Data Science with R for VITO
+Version: 0.1
+Authors@R: c(
+    person("3XG", "Workshop Team", , "workshop@example.org", role = c("aut", "cre"))
+  )
+URL: https://github.com/MEIJERIJ/Workshop-3XG
+Depends:
+    R (>= 4.1.0)
+Imports:
+    tidyverse (>= 2.0.0),
+    janitor,
+    readr
+Suggests:
+    downlit,
+    knitr,
+    sessioninfo
+Encoding: UTF-8
+License: CC BY-NC-ND 4.0

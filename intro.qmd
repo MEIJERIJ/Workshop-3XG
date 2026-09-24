@@ -1,0 +1,33 @@
+# Introductie {#sec-intro}
+
+[3XG](https://studie3xg.be/nl), wat staat voor ‘Gezondheid – Gemeenten – Geboorten’, is een studie die opgestart werd in 2010 in de regio Dessel-Mol-Retie, in opdracht van [NIRAS](https://www.niras.be/) en met ondersteuning van [STORA](https://www.stora.org/) en [MONA](https://www.monavzw.be/). Het wordt uitgevoerd door een onderzoeksteam van drie wetenschappelijke partners: VITO, PIH en Universiteit Antwerpen. Het doel van de studie is de opvolging van de **(milieu)gezondheid** van de inwoners uit de regio Dessel-Mol-Retie. De studie bestaat uit twee onderdelen: 
+
+  - Humane biomonitoring (geboortecohort)
+  - Analyse van ziekte- en sterfteregisters.
+  
+**Voor het project zullen we de focus leggen op de humane biomonitoring van het geboortecohort.**
+
+
+## Studie design 3XG
+
+### Humane biomonitoring via geboortecohort
+
+Een geboortecohorte is een **prospectieve longitudinale studie** waarbij een groep personen vanaf de geboorte gedurende meerdere jaren wordt opgevolgd. In dit geval gaat het om een geboortecohorte van pasgeborenen uit de regio Dessel-Mol-Retie. Tussen 2011 en 2015 werden 301 pasgeboren baby’s en hun moeders gerekruteerd om de mogelijke invloed van omgevingsfactoren op hun gezondheid en ontwikkeling te onderzoeken.
+
+Via **humane biomonitoring (HBM)** wordt de blootstelling aan milieuverontreinigende stoffen rechtstreeks in het menselijk lichaam gemeten. Hiervoor werden stalen van navelstrengbloed, moedermelk, bloed en urine van de moeder verzameld. Naast blootstellingsgegevens werden ook verschillende gezondheids- en ontwikkelingsparameters geregistreerd. Door deze gegevens te koppelen, kan worden nagegaan of blootstelling aan bepaalde stoffen samenhangt met veranderingen in gezondheid of ontwikkeling.
+
+De resultaten maken het mogelijk om de gezondheid van kinderen uit Dessel, Mol en Retie te vergelijken met die van kinderen in Vlaanderen. Omdat dezelfde kinderen op verschillende leeftijden opnieuw worden onderzocht, kan ook worden bestudeerd hoe blootstelling en gezondheidsindicatoren doorheen de tijd evolueren. Op de leeftijd van 7 en 14 jaar werden alle kinderen opnieuw uitgenodigd voor een humaan biomonitoringsonderzoek, waardoor longitudinale gegevens beschikbaar zijn over blootstelling tijdens verschillende levensfasen.
+
+![Visualisatie longitudinale studie](figures/longitudinale_studie.png){#fig-diagram width=100% fig-align="center"}
+
+
+
+
+
+### Analyse van ziekte- en sterfteregisters
+
+Elke 5 jaar wordt een rapport gepubliceerd met de resultaten van de analyses van de bestaande ziekte- en sterfteregisters. Het gaat om de meest recente gegevens in verband met overlijden, kanker, hospitalisaties en aangeboren afwijkingen. Het is de bedoeling om na te gaan of de gegevens van de regio vergelijkbaar zijn met de algemene Vlaamse gegevens, en om tijdstrends te bekijken.
+
+
+
+

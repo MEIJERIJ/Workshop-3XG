@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jonas Meijerink">
+
+<title>2&nbsp; Statistische methoden – Project 3XG</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./causaliteit.html" rel="next">
+<link href="./intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-081637667c24d217134d68a2b34206dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistiek.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistische methoden</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./figures/logo.png" alt="Workshop Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./figures/logo.png" alt="Workshop Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Project 3XG</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MEIJERIJ/Workshop-3XG/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welkom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introductie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./statistiek.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistische methoden</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./causaliteit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Causaliteit</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Voorbeeld data exploratie</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#probleem-met-één-steekproef-one-sample-problem" id="toc-probleem-met-één-steekproef-one-sample-problem" class="nav-link active" data-scroll-target="#probleem-met-één-steekproef-one-sample-problem"><span class="header-section-number">2.1</span> Probleem met één steekproef (<em>One-Sample Problem</em>)</a></li>
+  <li><a href="#probleem-met-twee-steekproeven-two-sample-problem" id="toc-probleem-met-twee-steekproeven-two-sample-problem" class="nav-link" data-scroll-target="#probleem-met-twee-steekproeven-two-sample-problem"><span class="header-section-number">2.2</span> Probleem met twee steekproeven (<em>Two-Sample Problem</em>)</a></li>
+  <li><a href="#regressie" id="toc-regressie" class="nav-link" data-scroll-target="#regressie"><span class="header-section-number">2.3</span> Regressie</a></li>
+  <li><a href="#model-assumpties" id="toc-model-assumpties" class="nav-link" data-scroll-target="#model-assumpties"><span class="header-section-number">2.4</span> Model assumpties</a>
+  <ul class="collapse">
+  <li><a href="#one-sample-t-toets" id="toc-one-sample-t-toets" class="nav-link" data-scroll-target="#one-sample-t-toets"><span class="header-section-number">2.4.1</span> One-sample t-toets</a></li>
+  <li><a href="#two-sample-t-toets" id="toc-two-sample-t-toets" class="nav-link" data-scroll-target="#two-sample-t-toets"><span class="header-section-number">2.4.2</span> Two-sample t-toets</a></li>
+  <li><a href="#regressie-1" id="toc-regressie-1" class="nav-link" data-scroll-target="#regressie-1"><span class="header-section-number">2.4.3</span> Regressie</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MEIJERIJ/Workshop-3XG/edit/main/statistiek.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MEIJERIJ/Workshop-3XG/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistische methoden</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Na het opstellen van jullie hypothese is het vervolgens ook belangerijk om na te denken over het complexiteitsniveau van de statistische analyse. Daarom kort enkele voorbeeldjes. Ik raad jullie dus ook aan om één van deze methoden te gebruiken bij het beantwoorden van jullie onderzoeksvraag. Maar indien gewenst mag het ook altijd complexer, dan kunnen we dit zeker bespreken :-).</p>
+<section id="probleem-met-één-steekproef-one-sample-problem" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="probleem-met-één-steekproef-one-sample-problem"><span class="header-section-number">2.1</span> Probleem met één steekproef (<em>One-Sample Problem</em>)</h2>
+<p>De eenvoudigste statistische analyse richt zich op één uitkomstvariabele die gemeten wordt bij een steekproef uit een homogene populatie. <span class="math display">\[
+Y_i, \qquad i = 1, \ldots, N
+\]</span> Typische analyses zijn:</p>
+<ul>
+<li>het berekenen van een gemiddelde of mediaan (maat voor centrale tendens)</li>
+<li>het berekenen van een standaardafwijking of interkwartielafstand (maat voor spreiding)</li>
+</ul>
+<p>Bijvoorbeeld, wat is de gemiddelde lichaamslengte van kinderen op 7-jarige leeftijd in de regio Dessel-Mol-Retie?</p>
+<p>Vervolgens kan men ook een hypothese testen, bijvoorbeeld of de gemiddelde lichaamslengte van kinderen in de regio Dessel-Mol-Retie verschilt van het gemiddelde in Vlaanderen. Dit kan men doen met een t-toets. De hypothese wordt dan als volgt geschreven <span class="math display">\[
+H_0: \mu_{lengte} = 145\ cm \qquad H_A: \mu \neq 145\ cm
+\]</span> Merk op dat de notatie <span class="math inline">\(\mu_{lengte}\)</span> verwijst naar het gemiddelde van de populatie. Anderzijds, kan men ook testen of deze hogher is dan 145 cm, of lager dan 145 cm. In dat geval wordt de alternatieve hypothese als volgt geschreven: <span class="math display">\[
+H_A: \mu_{lengte} &gt; 145\ cm \qquad \text{of} \qquad H_A: \mu_{lengte} &lt; 145\ cm
+\]</span></p>
+</section>
+<section id="probleem-met-twee-steekproeven-two-sample-problem" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="probleem-met-twee-steekproeven-two-sample-problem"><span class="header-section-number">2.2</span> Probleem met twee steekproeven (<em>Two-Sample Problem</em>)</h2>
+<p>Een eerste niveau van complexiteit ontstaat wanneer een uitkomstvariabele wordt gemeten in twee verschillende groepen binnen een grotere populatie, bijvoorbeeld: behandelde en onbehandelde patiënten, jongens en meisjes, of rokers en niet-rokers. <span class="math display">\[
+Y_{gi},\qquad g=1,2 \qquad i = 1, \ldots, N
+\]</span> Een belangrijke onderzoeksvraag is of het gemiddelde verschilt tussen beide groepen. De uitkomstvariabele kan nog steeds lengte zijn, maar we hebben nu ook een verklarende variabele: bijvoorbeeld het geslacht. Zo kan de lengte van jongens vergeleken worden met de lengte van meisjes. De uitkomstvariabele wordt vaak de <em>afhankelijke variabele</em> genoemd. De predictor wordt vaak covariaat of <em>onafhankelijke variabele</em> genoemd.</p>
+<p>De statistische methoden voor dit type gegevens omvatten:</p>
+<ul>
+<li>Variantieanalyse (ANOVA)</li>
+<li>t-toets</li>
+<li>Wilcoxon-toets.</li>
+</ul>
+<p>Om terug te komen op het voorbeeld van de lichaamslengte, kan men opnieuw een t-toets gebruiken om te testen of de gemiddelde lengte van jongens verschilt van die van meisjes. De hypothese wordt dan als volgt geschreven: <span class="math display">\[
+H_0: \mu_{lengte\ jongens} = \mu_{lengte\ meisjes} \qquad H_A: \mu_{lengte\ jongens} \neq \mu_{lengte\ meisjes}
+\]</span> In de voorgaande situatie had de onafhankelijke variabele slechts twee niveaus: een binaire of dichotome variabele. Dit is het eenvoudigste geval. Wanneer men meerdere groepen wil vergelijken, bijvoorbeeld de lengte van kinderen in verschillende leeftijdsgroepen, dan kan onderandere gebruik maken van ANOVA.</p>
+</section>
+<section id="regressie" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="regressie"><span class="header-section-number">2.3</span> Regressie</h2>
+<p>Wanneer de onafhankelijke variabele continu is kan men bovenstaande methoden niet meer gebruiken. Denk hierbij bijvoorbeeld de concentratie PFOS in het lichaam van de deelnemers in relatie tot de lichaamslengte. Voor dit type problemen maken we gebruik van een familie van modellen die vaak regressiemodellen genoemd worden. <span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_i + \epsilon_i, \qquad i = 1, \ldots, N
+\]</span> De notatie <span class="math inline">\(\beta_0\)</span> en <span class="math inline">\(\beta_1\)</span> verwijst naar de parameters van het model, die geschat worden op basis van de data. De term <span class="math inline">\(\epsilon_i\)</span> verwijst naar de residuen of fouttermen, de afwijking van de werkelijke waarde. In dit type model heeft de parameter <span class="math inline">\(\beta_1\)</span> een belangrijke interpretatie: het geeft de verandering in de afhankelijke variabele <span class="math inline">\(Y_i\)</span> weer voor een eenheidstoename in de onafhankelijke variabele <span class="math inline">\(x_i\)</span>.</p>
+<p>Wanneer de afhankelijke variabele <span class="math inline">\(Y_i\)</span> continu is (bijvoorbeeld lengte), gebruikt men vaak lineaire regressie. De onafhankelijke variabele <span class="math inline">\(x_i\)</span> kan continu, binair, categorisch of discreet zijn. De keuze van de statistische analysemethode wordt bepaald door de uitkomst- of afhankelijke variabele, en niet door de predictorvariabelen. Als de afhankelijke variabele binair is (ziek/niet-ziek; overleden/in leven, …), dan kiest men voor logistische regressie in plaats van lineaire regressie.</p>
+</section>
+<section id="model-assumpties" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="model-assumpties"><span class="header-section-number">2.4</span> Model assumpties</h2>
+<p><strong>Let op</strong>: voor alle bovenstaande modellen worden modelassumpties verondersteld. Het is echter niet nodig om deze uitgebreid statistisch te testen of diepgaand te bespreken, maar houd dit wel in je achterhoofd!</p>
+<section id="one-sample-t-toets" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="one-sample-t-toets"><span class="header-section-number">2.4.1</span> One-sample t-toets</h3>
+<p>Stel dat men wil onderzoeken of de gemiddelde lichaamslengte van een groep jongeren verschilt van een gekende referentiewaarde (bijvoorbeeld 145 cm). Hiervoor kan een one-sample t-toets worden gebruikt. Alvorens deze toets kan worden toegepast, dient de data te voldoen aan enkele modelassumpties:</p>
+<ul>
+<li><p><strong>Onafhankelijkheid</strong>: De waarnemingen moeten onafhankelijk van elkaar zijn verzameld.</p></li>
+<li><p><strong>Normaliteit</strong>: De afhankelijke variabele (lichaamslengte) dient normaal verdeeld te zijn in de populatie. Dit is vooral belangrijk bij kleinere steekproeven.</p></li>
+</ul>
+</section>
+<section id="two-sample-t-toets" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="two-sample-t-toets"><span class="header-section-number">2.4.2</span> Two-sample t-toets</h3>
+<p>Indien men wil onderzoeken of de gemiddelde lichaamslengte van jongens verschilt van die van meisjes, kan een two-sample t-toets worden gebruikt. Naast onafhankelijkheid en normaliteit gelden hierbij nog bijkomende assumpties:</p>
+<ul>
+<li><p><strong>Onafhankelijkheid</strong>: De waarnemingen moeten onafhankelijk van elkaar zijn verzameld, wat betekent dat de lengte van een deelnemer geen invloed heeft op of gerelateerd is aan de lengte van een andere deelnemer.</p></li>
+<li><p><strong>Normaliteit</strong>: De afhankelijke variabele (lichaamslengte) dient (binnen beide groepen) normaal verdeeld te zijn.</p></li>
+<li><p><strong>Homoscedasticiteit</strong>: De spreiding (variantie) van de lichaamslengte moet in beide groepen bij benadering gelijk zijn.</p></li>
+</ul>
+<p><strong>Merk op</strong> dat dezelfde assumpties ook gelden voor <strong>ANOVA</strong> met de uitbreiding dat homoscedasticiteit hier van toepassing is op alle verschillende groepen.</p>
+</section>
+<section id="regressie-1" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="regressie-1"><span class="header-section-number">2.4.3</span> Regressie</h3>
+<p>Wanneer de onafhankelijke variabele continu is (zoals de PFOS-concentratie), maakt men gebruik van een lineair regressiemodel om de continue afhankelijke variabele <span class="math inline">\(Y_{i}\)</span> (lichaamslengte) te modelleren. De statistische betrouwbaarheid en de interpretatie van de parameters <span class="math inline">\(\beta _{0}\)</span> en <span class="math inline">\(\beta _{1}\)</span> hangen direct samen met de geldigheid van de volgende modelassumpties:</p>
+<ul>
+<li><p><strong>Lineariteit</strong>: De relatie tussen de onafhankelijke variabele <span class="math inline">\(x\)</span> en de afhankelijke variabele <span class="math inline">\(Y\)</span> moet lineair zijn.</p></li>
+<li><p><strong>Onafhankelijkheid</strong>: De residuen <span class="math inline">\(\epsilon _{i}\)</span> moeten onafhankelijk van elkaar zijn (geen autocorrelatie).</p></li>
+<li><p><strong>Normaliteit</strong>: De fouttermen <span class="math inline">\(\epsilon _{i}\)</span> dienen normaal verdeeld te zijn met een gemiddelde van nul, genoteerd als <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>.</p></li>
+<li><p><strong>Homoscedasticiteit</strong>: De variantie van de fouttermen <span class="math inline">\(\sigma ^{2}\)</span> moet constant zijn voor elk niveau van de onafhankelijke variabele <span class="math inline">\(x_{i}\)</span>, wat betekent dat de voorspellingsfout over de gehele lijn gelijkblijvend verspreid is.</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/meijerij\.github\.io\/Workshop-3XG\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./intro.html" class="pagination-link" aria-label="Introductie">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introductie</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./causaliteit.html" class="pagination-link" aria-label="Causaliteit">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Causaliteit</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><img src="figures/vito-logo_blue.png" height="40px" style="vertical-align: middle; margin-right: 10px;"> This workshop is maintained by Jonas Meijerink.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MEIJERIJ/Workshop-3XG/edit/main/statistiek.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MEIJERIJ/Workshop-3XG/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a> and the <a href="https://bookdown.org/">bookdown</a> package.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

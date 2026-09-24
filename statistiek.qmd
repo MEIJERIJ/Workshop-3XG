@@ -1,0 +1,103 @@
+# Statistische methoden
+
+
+Na het opstellen van jullie hypothese is het vervolgens ook belangerijk om na te denken over het complexiteitsniveau van de statistische analyse. Daarom kort enkele voorbeeldjes. Ik raad jullie dus ook aan om één van deze methoden te gebruiken bij het beantwoorden van jullie onderzoeksvraag. Maar indien gewenst mag het ook altijd complexer, dan kunnen we dit zeker bespreken :-).
+
+## Probleem met één steekproef (*One-Sample Problem*)
+
+De eenvoudigste statistische analyse richt zich op één uitkomstvariabele die gemeten wordt bij een steekproef uit een homogene populatie.
+$$
+Y_i, \qquad i = 1, \ldots, N
+$$
+Typische analyses zijn:
+
+  - het berekenen van een gemiddelde of mediaan (maat voor centrale tendens)
+  - het berekenen van een standaardafwijking of interkwartielafstand (maat voor spreiding)
+  
+Bijvoorbeeld, wat is de gemiddelde lichaamslengte van kinderen op 7-jarige leeftijd in de regio Dessel-Mol-Retie?
+
+Vervolgens kan men ook een hypothese testen, bijvoorbeeld of de gemiddelde lichaamslengte van kinderen in de regio Dessel-Mol-Retie verschilt van het gemiddelde in Vlaanderen. Dit kan men doen met een t-toets. De hypothese wordt dan als volgt geschreven
+$$
+H_0: \mu_{lengte} = 145\ cm \qquad H_A: \mu \neq 145\ cm
+$$
+Merk op dat de notatie $\mu_{lengte}$ verwijst naar het gemiddelde van de populatie.
+Anderzijds, kan men ook testen of deze hogher is dan 145 cm, of lager dan 145 cm. In dat geval wordt de alternatieve hypothese als volgt geschreven:
+$$
+H_A: \mu_{lengte} > 145\ cm \qquad \text{of} \qquad H_A: \mu_{lengte} < 145\ cm
+$$
+
+
+## Probleem met twee steekproeven (*Two-Sample Problem*)
+
+Een eerste niveau van complexiteit ontstaat wanneer een uitkomstvariabele wordt gemeten in twee verschillende groepen binnen een grotere populatie, bijvoorbeeld: behandelde en onbehandelde patiënten, jongens en meisjes, of rokers en niet-rokers.
+$$
+Y_{gi},\qquad g=1,2 \qquad i = 1, \ldots, N
+$$
+Een belangrijke onderzoeksvraag is of het gemiddelde verschilt tussen beide groepen.
+De uitkomstvariabele kan nog steeds lengte zijn, maar we hebben nu ook een verklarende
+variabele: bijvoorbeeld het geslacht. Zo kan de lengte van jongens vergeleken worden met de lengte van meisjes. De uitkomstvariabele wordt vaak de *afhankelijke variabele* genoemd. De predictor wordt vaak covariaat of *onafhankelijke variabele* genoemd.
+
+De statistische methoden voor dit type gegevens omvatten:
+
+  - Variantieanalyse (ANOVA)
+  - t-toets
+  - Wilcoxon-toets.
+
+Om terug te komen op het voorbeeld van de lichaamslengte, kan men opnieuw een t-toets gebruiken om te testen of de gemiddelde lengte van jongens verschilt van die van meisjes. De hypothese wordt dan als volgt geschreven:
+$$
+H_0: \mu_{lengte\ jongens} = \mu_{lengte\ meisjes} \qquad H_A: \mu_{lengte\ jongens} \neq \mu_{lengte\ meisjes}
+$$
+In de voorgaande situatie had de onafhankelijke variabele slechts twee niveaus: een binaire of dichotome variabele. Dit is het eenvoudigste geval. Wanneer men meerdere groepen wil vergelijken, bijvoorbeeld de lengte van kinderen in verschillende leeftijdsgroepen, dan kan onderandere gebruik maken van ANOVA.
+
+## Regressie
+
+Wanneer de onafhankelijke variabele continu is kan men bovenstaande methoden niet meer gebruiken. Denk hierbij bijvoorbeeld de concentratie PFOS in het lichaam van de deelnemers in relatie tot de lichaamslengte. Voor dit type problemen maken we gebruik van een familie van modellen die vaak regressiemodellen genoemd worden.
+$$
+Y_i = \beta_0 + \beta_1 x_i + \epsilon_i, \qquad i = 1, \ldots, N
+$$
+De notatie $\beta_0$ en $\beta_1$ verwijst naar de parameters van het model, die geschat worden op basis van de data. De term $\epsilon_i$ verwijst naar de residuen of fouttermen, de afwijking van de werkelijke waarde. In dit type model heeft de parameter $\beta_1$ een belangrijke interpretatie: het geeft de verandering in de afhankelijke variabele $Y_i$ weer voor een eenheidstoename in de onafhankelijke variabele $x_i$.
+
+Wanneer de afhankelijke variabele $Y_i$ continu is (bijvoorbeeld lengte), gebruikt men vaak lineaire regressie. De onafhankelijke variabele $x_i$ kan continu, binair, categorisch of discreet zijn. De keuze van de statistische analysemethode wordt bepaald door de uitkomst- of afhankelijke variabele, en niet door de predictorvariabelen. Als de afhankelijke variabele binair is (ziek/niet-ziek; overleden/in leven, ...), dan kiest men voor logistische regressie in plaats van lineaire regressie.
+
+
+## Model assumpties
+
+**Let op**: voor alle bovenstaande modellen worden modelassumpties verondersteld. Het is echter niet nodig om deze uitgebreid statistisch te testen of diepgaand te bespreken, maar houd dit wel in je achterhoofd!
+
+
+### One-sample t-toets
+
+Stel dat men wil onderzoeken of de gemiddelde lichaamslengte van een groep jongeren verschilt van een gekende referentiewaarde (bijvoorbeeld 145 cm). Hiervoor kan een one-sample t-toets worden gebruikt. Alvorens deze toets kan worden toegepast, dient de data te voldoen aan enkele modelassumpties:
+
+- **Onafhankelijkheid**: De waarnemingen moeten onafhankelijk van elkaar zijn verzameld.
+
+- **Normaliteit**: De afhankelijke variabele (lichaamslengte) dient normaal verdeeld te zijn in de populatie. Dit is vooral belangrijk bij kleinere steekproeven.
+
+
+### Two-sample t-toets
+
+Indien men wil onderzoeken of de gemiddelde lichaamslengte van jongens verschilt van die van meisjes, kan een two-sample t-toets worden gebruikt. Naast onafhankelijkheid en normaliteit gelden hierbij nog bijkomende assumpties:
+
+- **Onafhankelijkheid**: De waarnemingen moeten onafhankelijk van elkaar zijn verzameld, wat betekent dat de lengte van een deelnemer geen invloed heeft op of gerelateerd is aan de lengte van een andere deelnemer.
+
+- **Normaliteit**: De afhankelijke variabele (lichaamslengte) dient (binnen beide groepen) normaal verdeeld te zijn.
+
+- **Homoscedasticiteit**: De spreiding (variantie) van de lichaamslengte moet in beide groepen bij benadering gelijk zijn. 
+
+**Merk op** dat dezelfde assumpties ook gelden voor **ANOVA** met de uitbreiding dat homoscedasticiteit hier van toepassing is op alle verschillende groepen.
+
+### Regressie
+
+Wanneer de onafhankelijke variabele continu is (zoals de PFOS-concentratie), maakt men gebruik van een lineair regressiemodel om de continue afhankelijke variabele $Y_{i}$ (lichaamslengte) te modelleren. De statistische betrouwbaarheid en de interpretatie van de parameters $\beta _{0}$ en $\beta _{1}$ hangen direct samen met de geldigheid van de volgende modelassumpties:
+
+- **Lineariteit**: De relatie tussen de onafhankelijke variabele $x$ en de afhankelijke variabele $Y$ moet lineair zijn.
+
+- **Onafhankelijkheid**: De residuen $\epsilon _{i}$ moeten onafhankelijk van elkaar zijn (geen autocorrelatie).
+
+- **Normaliteit**: De fouttermen $\epsilon _{i}$ dienen normaal verdeeld te zijn met een gemiddelde van nul, genoteerd als $\epsilon_i \sim N(0, \sigma^2)$.
+
+- **Homoscedasticiteit**: De variantie van de fouttermen $\sigma ^{2}$ moet constant zijn voor elk niveau van de onafhankelijke variabele $x_{i}$, wat betekent dat de voorspellingsfout over de gehele lijn gelijkblijvend verspreid is.
+
+
+
+

@@ -1,0 +1,38 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Project 3XG"
+  reader-mode: true
+  sidebar:
+    logo: "figures/logo.png"  # Path to your logo file
+    logo-alt: "Workshop Logo"
+  page-footer:
+    left: |
+      <img src="figures/vito-logo_blue.png" height="40px" style="vertical-align: middle; margin-right: 10px;"> This workshop is maintained by Jonas Meijerink. 
+    right: |
+      Built with <a href="https://quarto.org/">Quarto</a> and the [bookdown](https://bookdown.org/) package.
+  site-url: https://meijerij.github.io/Workshop-3XG/
+  repo-url: https://github.com/MEIJERIJ/Workshop-3XG/
+  repo-branch: main
+  repo-actions: [edit, issue]
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - statistiek.qmd
+    - causaliteit.qmd
+    - exploration.qmd
+    
+
+format:
+  html:
+    theme:
+      - cosmo
+      - workshop.scss
+    code-link: true
+    code-fold: true 
+    author-meta: "Jonas Meijerink"
+    callout-appearance: simple
+
+editor: source

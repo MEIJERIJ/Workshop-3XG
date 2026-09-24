@@ -1,0 +1,69 @@
+# Welkom {.unnumbered}
+
+Welkom bij het **Project 3XG**: een introductie tot data-analyse op basis van de [3XG-studie](https://studie3xg.be/nl).
+
+## Over dit project
+
+Dit project zal uit twee verschillende onderdelen bestaan. 
+
+### Fase 1: Formuleren van de onderzoeksvraag
+
+In de initiële fase formuleer je een concrete en nauwkeurig afgebakende onderzoeksvraag op basis van het [3XG dashboard](https://report.vito.be/t/3xGopSchool/views/3xGdashboard-v2/3xgversie2?%3Aembed=y&%3Aiid=1&%3AisGuestRedirectFromVizportal=y). 
+Hierbij anticipeer je op de toepasbare statistische methoden en de mogelijke causale verbanden. 
+Volgende secties kunnen jullie hierbij helpen: [Introductie](intro.html), [Statistische methoden](statistiek.html) en [Causaliteit](causaliteit.html). 
+Het is dan aan jullie om een voorstel te doen welke hypothese jullie willen testen. Vermeld hierbij onderstaande aspecten:
+
+- Definieer duidelijk de **hypothese** in woorden als symbolen.
+
+- Geef aan welke **extra variabelen** jullie nodig hebben (geslacht, socio-economische status, ...).
+
+- Denk al eens na welke **statistische methoden** jullie hiervoor zouden gebruiken.
+
+
+
+### Fase 2: Data-exploratie en analyse
+
+In een tweede fase zal je de onderzoeksvraag beantwoorden met behulp van de gesimuleerde data van de 3XG-studie. Deze zal beschikbaar gemaakt worden via [GitHub](https://github.com/MEIJERIJ/Workshop-3XG) onder de folder *Data*. In deze map staat momenteel al een voorbeeld dataset, ter illustratie hoe dit eruit kan zien.
+
+Het doel is om de data te verwerken aan de hand van:
+
+  - **Descriptieve statistiek**: visualisaties, spreiding, correlaties, ...
+  - **Inferentiële statistiek**: hypothese testen, regressieanalyse, ...
+
+
+<!--
+De voorbeelden worden in detail uitgewerkt in de cursusnota's, inclusief de R-code. Wanneer je de cursusnota's raadpleegt, kun je de R-code eenvoudig kopiëren en in je lokale R-software plakken. Hier is een voorbeeld van een stuk R-code:
+```{r}
+### Simulate a normal distribution
+#---------------------------------
+Y <- rnorm(n = 100, mean = 0, sd = 1)
+```
+Als je nu je muis naar de rechterbovenhoek van het vak met de R-code beweegt, zie je een icoontje verschijnen in die hoek. 
+Als je op dat icoontje klikt, wordt de inhoud van het vak naar je klembord gekopieerd, zodat je het kunt plakken waar je maar wilt (bv. in een lokaal R-bestand). 
+Ik raad je aan om **met je eigen lokale R-script te werken**, waarin je een deel van de R-code uit de cursusnota's kopieert, 
+zodat je zelf met de data en de R-code kunt *spelen*.
+
+
+## Waarom R?
+
+R is een gratis, opensource programmeertaal en -omgeving die specifiek is ontworpen voor statistische analyses. Het wordt breed gebruikt binnen onderzoeksinstellingen, waaronder VITO, omdat het
+
+- Een groot ecosysteem aan pakketten heeft voor het bewerken, visualiseren, analyseren en rapporteren van data.
+- Reproduceerbare analyse eenvoudig maakt.
+- Gratis is en werkt op Windows, macOS en Linux.
+
+## Tools you'll need
+
+Om deze workshop te volgen, heb je het volgende nodig:
+
+- **R** te downloaden via [CRAN](https://cran.r-project.org/).
+- **RStudio** (of een andere R-vriendelijke editor zoals Positron of VS Code met de R-extensie) — download RStudio Desktop via
+  [posit.co](https://posit.co/download/rstudio-desktop/).
+
+-->
+
+## Acknowledgements
+
+De layout van dit document is geïnspireerd op het [R for Data Science (2nd edition)](https://hadley.nz) by Hadley Wickham, Mine Çetinkaya-Rundel, 
+and Garrett Grolemund. De structuur werd opgebouwd met behulp van [bookdown](https://bookdown.org/) in R Studio en omgezet naar een html-bestand dat beschikbaar wordt gesteld op GitHub. Indien gewenst, kun je de html omzetten naar een pdf-bestand. De beste manier om dit te doen, is via de *print* functie van je browser. Voordat je dit doet, kun je best eerst de zijbalk (die de inhoudstafel bevat) inklappen.
+
