@@ -165,6 +165,8 @@ We zien duidelijk een dalende trend in de concentraties van PFOS en PFOA over de
 
 ### Verdelingen
 
+Het is ook altijd zinvol om een histogram te maken van de uitkomstvariabele, in dit geval het neutrofielenaantal. Zo krijg je een idee van de range en de verdeling van de uitkomst. Eventueel merk je zo ook enkele waarden op die buiten de verwachte range vallen, wat kan wijzen op meetfouten of outliers. 
+
 ```{r}
 #| label: fig-outcome-distribution
 #| fig-cap: "Verdeling van het neutrofielenaantal (complete cases)"
@@ -174,6 +176,8 @@ ggplot(dataset, aes(x = neutrophil)) +
   labs(x = "Neutrofielenaantal (10^9/L)", y = "Aantal metingen") +
   theme_minimal()
 ```
+
+Gezien dit dataset longitudinaal is, is het ook interessant om de trend van het neutrofielenaantal doorheen de tijd te bekijken. We kunnen hiervoor een lijnplot maken waarbij we de neutrofielenaantallen van enkele random gekozen deelnemers over de tijd uitzetten. Dit geeft een eerste indruk van de algemene trend en eventuele variabiliteit tussen deelnemers.
 
 ```{r}
 #| label: tbl-outcome-summary
@@ -192,15 +196,12 @@ dataset %>%
 
 ### Dropout en missing data
 
-De uitval op de uitkomst volgt in dit design een **vast**, monotoon
-opvolgingsschema: 301 deelnemers op jaar 0, 220 op jaar 7 en 200 op jaar 14
-(wie al ontbreekt op jaar 7 blijft ook ontbreken op jaar 14). Wie het eerst
-afhaakt is niet toevallig, maar gestuurd door SES-niveau, wat hieronder eerst
-op golfniveau en dan per subgroep gecontroleerd wordt.
+Elke dataset bevat typisch gezien ook ontbrekende waarden, of *missing data*. In longitudinale studies is het vaak zo dat deelnemers afhaken of niet aanwezig zijn bij bepaalde meetmomenten. Dit kan leiden tot een afname van het aantal beschikbare metingen doorheen de tijd. Het is belangrijk om dit in kaart te brengen, omdat het kan wijzen op een selectieve uitval die de resultaten kan beïnvloeden.
+
 
 ```{r}
 #| label: tbl-missing-outcome
-#| tbl-cap: "Aantal en percentage ontbrekende uitkomstmetingen, per meetmoment (doel: 301 / 220 / 200)"
+#| tbl-cap: "Aantal en percentage ontbrekende uitkomstmetingen"
 
 dataset |>
   group_by(time) |>
@@ -213,7 +214,9 @@ dataset |>
   ) |>
   kable(col.names = c("Meetmoment", "N totaal", "N aanwezig", "N ontbrekend", "% ontbrekend"))
 ```
-
+De dropout op de uitkomst volgt in dit design een **vast**, monotoon
+patroon: 301 deelnemers op jaar 0, 220 op jaar 7 en 200 op jaar 14
+(wie al ontbreekt op jaar 7 blijft ook ontbreken op jaar 14). 
 ```{r}
 #| label: fig-dropout
 #| fig-cap: "Aantal deelnemers met een uitkomstmeting doorheen de opvolging (301 / 220 / 200)"
@@ -229,10 +232,7 @@ dataset |>
   theme_minimal()
 ```
 
-Vervolgens wordt nagegaan of wie afhaakt samenhangt met andere kenmerken --
-met een vast opvolgingsschema is dit geen toets van een kansmechanisme, maar
-een controle of de gesimuleerde SES-gelinkte volgorde van uitval ook echt
-zichtbaar is in de data (lager SES-niveau -> hoger aandeel ontbrekend).
+Vervolgens wordt nagegaan of wie afhaakt samenhangt met andere kenmerken. Dit kan door te kijken naar het percentage ontbrekende uitkomstmetingen per geslacht en SES-niveau. In dit geval lijkt er een indicatie te zijn dat deelnemers met een lager SES-niveau vaker ontbreken bij de opvolging.
 
 ```{r}
 #| label: tbl-missing-by-subgroup
@@ -245,6 +245,8 @@ dataset |>
 ```
 
 ### Stratificatie volgens subpopulaties
+
+De outkomst kan ook worden bekeken, gestratificeerd naar geslacht of SES-niveau. We gebruiken hiervoor opnieuw boxplots. In dit geval zijn er geen duidelijke verschillen in neutrofielenaantal tussen jongens en meisjes, noch tussen de verschillende SES-niveaus.
 
 ```{r}
 #| label: fig-outcome-by-gender

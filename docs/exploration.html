@@ -648,6 +648,7 @@ Figure&nbsp;4.3: Blootstelling per stof, gestratificeerd naar meetmoment
 <span class="header-section-number">4.2</span> Uitkomsten</h2>
 <section id="verdelingen" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="verdelingen">
 <span class="header-section-number">4.2.1</span> Verdelingen</h3>
+<p>Het is ook altijd zinvol om een histogram te maken van de uitkomstvariabele, in dit geval het neutrofielenaantal. Zo krijg je een idee van de range en de verdeling van de uitkomst. Eventueel merk ze ook enkele waarden op die buiten de verwachte range vallen, wat kan wijzen op meetfouten of outliers.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dataset</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">neutrophil</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">30</span>, fill <span class="op">=</span> <span class="st">"darkgreen"</span>, colour <span class="op">=</span> <span class="st">"white"</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
@@ -664,6 +665,7 @@ Figure&nbsp;4.4: Verdeling van het neutrofielenaantal (complete cases)
 </div>
 </div>
 </div>
+<p>Gezien dit dataset longitudinaal is, is het ook interessant om de trend van het neutrofielenaantal doorheen de tijd te bekijken. We kunnen hiervoor een lijnplot maken waarbij we de neutrofielenaantallen van enkele random gekozen deelnemers over de tijd uitzetten. Dit geeft een eerste indruk van de algemene trend en eventuele variabiliteit tussen deelnemers.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dataset</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">36</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -688,7 +690,7 @@ Table&nbsp;4.3: Longitudinale trend van het neutrofielenaantal
 </div>
 </section><section id="dropout-en-missing-data" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="dropout-en-missing-data">
 <span class="header-section-number">4.2.2</span> Dropout en missing data</h3>
-<p>De uitval op de uitkomst volgt in dit design een <strong>vast</strong>, monotoon opvolgingsschema: 301 deelnemers op jaar 0, 220 op jaar 7 en 200 op jaar 14 (wie al ontbreekt op jaar 7 blijft ook ontbreken op jaar 14). Wie het eerst afhaakt is niet toevallig, maar gestuurd door SES-niveau, wat hieronder eerst op golfniveau en dan per subgroep gecontroleerd wordt.</p>
+<p>Elke dataset bevat typisch gezien ook ontbrekende waarden, of <em>missing data</em>. In longitudinale studies is het vaak zo dat deelnemers afhaken of niet aanwezig zijn bij bepaalde meetmomenten. Dit kan leiden tot een afname van het aantal beschikbare metingen doorheen de tijd. Het is belangrijk om dit in kaart te brengen, omdat het kan wijzen op een selectieve uitval die de resultaten kan beïnvloeden.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -742,6 +744,7 @@ Table&nbsp;4.4: Aantal en percentage ontbrekende uitkomstmetingen, per meetmomen
 </figure>
 </div>
 </div>
+<p>De dropout op de uitkomst volgt in dit design een <strong>vast</strong>, monotoon patroon: 301 deelnemers op jaar 0, 220 op jaar 7 en 200 op jaar 14 (wie al ontbreekt op jaar 7 blijft ook ontbreken op jaar 14).</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -763,7 +766,7 @@ Figure&nbsp;4.5: Aantal deelnemers met een uitkomstmeting doorheen de opvolging 
 </div>
 </div>
 </div>
-<p>Vervolgens wordt nagegaan of wie afhaakt samenhangt met andere kenmerken – met een vast opvolgingsschema is dit geen toets van een kansmechanisme, maar een controle of de gesimuleerde SES-gelinkte volgorde van uitval ook echt zichtbaar is in de data (lager SES-niveau -&gt; hoger aandeel ontbrekend).</p>
+<p>Vervolgens wordt nagegaan of wie afhaakt samenhangt met andere kenmerken. Dit kan door te kijken naar het percentage ontbrekende uitkomstmetingen per geslacht en SES-niveau. In dit geval lijkt er een indicatie te zijn dat deelnemers met een lager SES-niveau vaker ontbreken bij de opvolging.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">SES</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -820,6 +823,7 @@ Table&nbsp;4.5: Percentage ontbrekende uitkomstmetingen, per geslacht en SES-niv
 </div>
 </section><section id="stratificatie-volgens-subpopulaties-1" class="level3" data-number="4.2.3"><h3 data-number="4.2.3" class="anchored" data-anchor-id="stratificatie-volgens-subpopulaties-1">
 <span class="header-section-number">4.2.3</span> Stratificatie volgens subpopulaties</h3>
+<p>De outkomst kan ook worden bekeken, gestratificeerd naar geslacht of SES-niveau. We gebruiken hiervoor opnieuw boxplots. In dit geval zijn er geen duidelijke verschillen in neutrofielenaantal tussen jongens en meisjes, noch tussen de verschillende SES-niveaus.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dataset</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">time</span>, y <span class="op">=</span> <span class="va">neutrophil</span>, fill <span class="op">=</span> <span class="va">gender</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>outlier.alpha <span class="op">=</span> <span class="fl">0.3</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
