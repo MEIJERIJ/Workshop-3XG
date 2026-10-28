@@ -1,10 +1,9 @@
 # Project 2026-2027
 
-De gekozen onderzoeksvraag luidt:\
+De gekozen onderzoeksvraag is:\
 \
 *Is er een verband tussen de MEHP-concentratie in de urine en de daling van de FT4-concentratie in het bloed bij 7-jarige (jongens/meisjes) uit het 3xG-onderzoek, rekening houdend met een gezond BMI?*
 
-Voor dit project wordt gebruikgemaakt van een gesimuleerde dataset, gebaseerd op gegevens uit het 3xG-onderzoek. Een aantal kenmerken van de gesimuleerde variabelen, zoals gemiddelden en standaarddeviaties, werd afgeleid uit de oorspronkelijke 3xG-data. De relaties tussen MEHP, FT4, geslacht en BMI werden gesimuleerd op basis van de geobserveerde relaties. Resultaten uit analyses van deze dataset vormen dus **geen wetenschappelijk bewijs** voor een werkelijke associatie tussen MEHP en FT4.
 
 De dataset bevat cross-sectionele gegevens op de leeftijd van 7 jaar en is beschikbaar via [GitHub](https://github.com/MEIJERIJ/Workshop-3XG) onder de folder *Data*.
 
@@ -27,3 +26,6 @@ De dataset bevat de volgende variabelen:
 - **gender**: Geslacht (1 = jongen, 2 = meisje)
 
 - **bmi**: Body mass index (BMI), berekend als gewicht (kg) / lengte² (m²)
+
+
+Voor dit project wordt gebruikgemaakt van een gesimuleerde dataset. Een aantal kenmerken van de gesimuleerde variabelen, zoals gemiddelden en standaarddeviaties, werd afgeleid uit de oorspronkelijke 3xG-data. De relaties tussen MEHP, FT4, geslacht en BMI werden gesimuleerd op basis van de geobserveerde relaties. Resultaten uit analyses van deze dataset vormen dus **geen wetenschappelijk bewijs** voor een werkelijke associatie tussen MEHP en FT4.
