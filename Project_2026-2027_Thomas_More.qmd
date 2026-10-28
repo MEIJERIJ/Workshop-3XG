@@ -1,0 +1,29 @@
+# Project 2026-2027
+
+De gekozen onderzoeksvraag luidt:\
+\
+*Is er een verband tussen de MEHP-concentratie in de urine en de daling van de FT4-concentratie in het bloed bij 7-jarige (jongens/meisjes) uit het 3xG-onderzoek, rekening houdend met een gezond BMI?*
+
+Voor dit project wordt gebruikgemaakt van een gesimuleerde dataset, gebaseerd op gegevens uit het 3xG-onderzoek. Een aantal kenmerken van de gesimuleerde variabelen, zoals gemiddelden en standaarddeviaties, werd afgeleid uit de oorspronkelijke 3xG-data. De relaties tussen MEHP, FT4, geslacht en BMI werden gesimuleerd op basis van de geobserveerde relaties. Resultaten uit analyses van deze dataset vormen dus **geen wetenschappelijk bewijs** voor een werkelijke associatie tussen MEHP en FT4.
+
+De dataset bevat cross-sectionele gegevens op de leeftijd van 7 jaar en is beschikbaar via [GitHub](https://github.com/MEIJERIJ/Workshop-3XG) onder de folder *Data*.
+
+De dataset bevat de volgende variabelen:
+
+- **id**: Uniek identificatienummer van de deelnemer
+
+- **ft4**: Vrij thyroxine (FT4) in bloedserum, uitgedrukt in pmol/L. Waarden onder de LOQ zijn gecodeerd als -3.
+
+- **ft4_lod**: Detectielimiet (LOD) voor FT4, in pmol/L
+
+- **ft4_loq**: Kwantificatielimiet (LOQ) voor FT4, in pmol/L
+
+- **mehp_sg**: MEHP-concentratie in eerste ochtendurine, gecorrigeerd voor soortelijk gewicht, in µg/L. Waarden onder de LOQ zijn gecodeerd als -3.
+
+- **mehp_sgimp**: MEHP-concentratie in eerste ochtendurine, gecorrigeerd voor soortelijk gewicht, waarbij waarden onder de LOQ zijn geïmputeerd
+
+- **mehp_loq**: Kwantificatielimiet (LOQ) voor MEHP, in µg/L
+
+- **gender**: Geslacht (1 = jongen, 2 = meisje)
+
+- **bmi**: Body mass index (BMI), berekend als gewicht (kg) / lengte² (m²)

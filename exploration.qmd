@@ -219,7 +219,7 @@ patroon: 301 deelnemers op jaar 0, 220 op jaar 7 en 200 op jaar 14
 (wie al ontbreekt op jaar 7 blijft ook ontbreken op jaar 14). 
 ```{r}
 #| label: fig-dropout
-#| fig-cap: "Aantal deelnemers met een uitkomstmeting doorheen de opvolging (301 / 220 / 200)"
+#| fig-cap: "Aantal deelnemers met een uitkomstmeting doorheen de opvolging"
 
 dataset |>
   group_by(time) |>

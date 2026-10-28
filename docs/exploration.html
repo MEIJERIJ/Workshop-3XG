@@ -68,6 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./Project 2026-2027 Thomas More.html" rel="next">
 <link href="./causaliteit.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -172,6 +173,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./exploration.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Voorbeeld data exploratie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Project 2026-2027 Thomas More.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Project 2026-2027 Thomas More</span></span></a>
   </div>
 </li>
     </ul>
@@ -648,7 +655,7 @@ Figure&nbsp;4.3: Blootstelling per stof, gestratificeerd naar meetmoment
 <span class="header-section-number">4.2</span> Uitkomsten</h2>
 <section id="verdelingen" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="verdelingen">
 <span class="header-section-number">4.2.1</span> Verdelingen</h3>
-<p>Het is ook altijd zinvol om een histogram te maken van de uitkomstvariabele, in dit geval het neutrofielenaantal. Zo krijg je een idee van de range en de verdeling van de uitkomst. Eventueel merk ze ook enkele waarden op die buiten de verwachte range vallen, wat kan wijzen op meetfouten of outliers.</p>
+<p>Het is ook altijd zinvol om een histogram te maken van de uitkomstvariabele, in dit geval het neutrofielenaantal. Zo krijg je een idee van de range en de verdeling van de uitkomst. Eventueel merk je zo ook enkele waarden op die buiten de verwachte range vallen, wat kan wijzen op meetfouten of outliers.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dataset</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">neutrophil</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">30</span>, fill <span class="op">=</span> <span class="st">"darkgreen"</span>, colour <span class="op">=</span> <span class="st">"white"</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
@@ -704,7 +711,7 @@ Table&nbsp;4.3: Longitudinale trend van het neutrofielenaantal
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Meetmoment"</span>, <span class="st">"N totaal"</span>, <span class="st">"N aanwezig"</span>, <span class="st">"N ontbrekend"</span>, <span class="st">"% ontbrekend"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div id="tbl-missing-outcome" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-missing-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4.4: Aantal en percentage ontbrekende uitkomstmetingen, per meetmoment (doel: 301 / 220 / 200)
+Table&nbsp;4.4: Aantal en percentage ontbrekende uitkomstmetingen
 </figcaption><div aria-describedby="tbl-missing-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="cell caption-top table table-sm table-striped small">
@@ -761,7 +768,7 @@ Table&nbsp;4.4: Aantal en percentage ontbrekende uitkomstmetingen, per meetmomen
 <img src="exploration_files/figure-html/fig-dropout-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dropout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.5: Aantal deelnemers met een uitkomstmeting doorheen de opvolging (301 / 220 / 200)
+Figure&nbsp;4.5: Aantal deelnemers met een uitkomstmeting doorheen de opvolging
 </figcaption></figure>
 </div>
 </div>
@@ -1295,6 +1302,9 @@ Figure&nbsp;4.8: Relatie tussen PFOS/PFOA-blootstelling en het neutrofielenaanta
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./Project 2026-2027 Thomas More.html" class="pagination-link" aria-label="Project 2026-2027 Thomas More">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Project 2026-2027 Thomas More</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
